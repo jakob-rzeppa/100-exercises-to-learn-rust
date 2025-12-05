@@ -10,4 +10,43 @@
 // The `tests` folder is a special location for `cargo`. It's where it looks for **integration tests**.
 // Integration here has a very specific meaning: they test **the public API** of your project.
 // You'll need to pay attention to the visibility of your types and methods; integration
-// tests can't access private or `pub(crate)` items.
+// tests can't access private or `pub` items.
+
+pub struct Order {
+    product_name: String,
+    quantity: u32,
+    unit_price: u32
+}
+
+impl Order {
+    pub fn new(product_name: String, quantity: u32, unit_price: u32) -> Order {
+        if product_name.len() == 0 || product_name.len() > 300 || quantity == 0 || unit_price == 0 {
+            panic!("oh no!");
+        }
+        Self { product_name, quantity, unit_price }
+    }
+
+    pub fn total(&self) -> u32 {
+        self.quantity * self.unit_price
+    }
+
+    pub fn set_product_name(&mut self, new_product_name: String) {
+        self.product_name = new_product_name;
+    }
+    pub fn set_quantity(&mut self, new_quantity: u32) {
+        self.quantity = new_quantity;
+    }
+    pub fn set_unit_price(&mut self, new_price: u32) {
+        self.unit_price = new_price;
+    }
+
+    pub fn product_name(&self) -> &str {
+        self.product_name.as_str()
+    }
+    pub fn quantity(&self) -> &u32 {
+        &self.quantity
+    }
+    pub fn unit_price(&self) -> &u32 {
+        &self.unit_price
+    }
+}
