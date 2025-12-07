@@ -9,7 +9,13 @@ enum Shape {
 impl Shape {
     // TODO: Implement the `n_sides` method using a `match`.
     pub fn n_sides(&self) -> u8 {
-        todo!()
+        match self {
+            Shape::Circle => {1}
+            Shape::Square => {4}
+            Shape::Rectangle => {4}
+            Shape::Triangle => {3}
+            Shape::Pentagon => {5}
+        }
     }
 }
 
@@ -19,7 +25,7 @@ mod tests {
 
     #[test]
     fn test_circle() {
-        assert_eq!(Shape::Circle.n_sides(), 0);
+        assert_eq!(Shape::Circle.n_sides(), 1);
     }
 
     #[test]
