@@ -7,6 +7,7 @@
 // and returns an `Option<&Ticket>`.
 
 use ticket_fields::{TicketDescription, TicketTitle};
+use ticket_fields::test_helpers::ticket_description;
 
 #[derive(Clone)]
 pub struct TicketStore {
@@ -44,8 +45,21 @@ impl TicketStore {
         }
     }
 
-    pub fn add_ticket(&mut self, ticket: Ticket) {
-        self.tickets.push(ticket);
+    pub fn get(&self, id: TicketId) -> Option<&Ticket> {
+        self.tickets.iter().find(|t| t.id == id)
+    }
+
+    pub fn add_ticket(&mut self, ticket_draft: TicketDraft) -> TicketId {
+        let id = TicketId((self.tickets.len() as u64) + 1);
+
+        self.tickets.push(Ticket {
+            id,
+            title: ticket_draft.title,
+            description: ticket_draft.description,
+            status: Status::ToDo,
+        });
+
+        id
     }
 }
 
